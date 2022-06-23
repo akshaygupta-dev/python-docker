@@ -1,3 +1,5 @@
+name: Trigger Docker Build
+
 on:
   pull_request:
     types : [open]
@@ -7,12 +9,12 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-    - name: Send a dispatch POST event
+    - name: Send a dispatch event
       uses: fjogeleit/http-request-action@v1.9.2
 
       with:
         url: "https://api.github.com/repos/akshaygupta-dev/ubuntu-nginx-server/dispatches"
         method: "POST"
         customHeaders: '{"Accept": "application/vnd.github.v3+json", "Authorization": "token ${{ secrets.SECRET_KEY }}"}'
-        data:  '{"event_type":"on-demand-test","client_payload":{"unit":false,"integration":true}}'
+        data:  '{"event_type":"run-docker-build","client_payload":{}}'
   
