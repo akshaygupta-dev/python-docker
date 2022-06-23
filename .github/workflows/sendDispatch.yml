@@ -1,0 +1,14 @@
+name: Send a dispatch POST event
+uses: fjogeleit/http-request-action@v1.9.2
+
+on:
+  pull_request:
+    types : [open]
+  push:
+  
+with:
+  url: "https://api.github.com/repos/akshaygupta-dev/ubuntu-nginx-server/dispatches"
+  method: "POST"
+  customHeaders: '{"Accept": "application/vnd.github.v3+json", "Authorization": "token ${{ secrets.SECRET_KEY }}"}'
+  data:  '{"event_type":"on-demand-test","client_payload":{"unit":false,"integration":true}}'
+  
